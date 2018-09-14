@@ -1,0 +1,171 @@
+% ## Compiler		: PdfLatex
+% ## Bibliography	: BibTex
+
+\documentclass[print]{../class/csthesis}
+%% add option 'print' for print version
+%% leave blank or add option 'online' for online version
+
+%% Package 'subfiles' allows you to execute each chapter independently and separately, to facilitate correcting format without executing main file.
+
+%% Custom packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%% Print bibilography in subfiles when subfiles.tex is separately compiled
+\newboolean{printBibInSubfiles}
+\setboolean{printBibInSubfiles}{true} 
+\def\bib{\ifthenelse{\boolean{printBibInSubfiles}}
+	{\bibliographystyle{../main/IEEEtran}
+		\bibliography{../main/references}}
+	{}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%% Specify path for graphics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{figs/}{../figs/}} 
+% the first argrument is when you run from thesis.tex
+% the second argrument is when you run from {chapter1, 2, ...}.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% command for algorithm environment %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\algnewcommand\algorithmicinput{\textbf{INPUT:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
+
+%\algblockdefx{FOR}{ENDFOR}[1]%
+%{\textbf{for }#1 \textbf{do}}%
+%{\textbf{end for}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mystyle}% 
+{3pt}% 
+{3pt}% 
+{\normalfont}% 
+{\parindent}% 
+{\bf}% 
+{}% 
+{1em}% 
+{}% 
+\theoremstyle{mystyle}
+\newtheorem{example}{Example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\allowdisplaybreaks % divide the equation to multiple pages
+
+%% Add your hyphenation manually
+\hyphenation{SE-COMPAX speci-fies}
+
+
+
+\begin{document}
+%% Don't print bibilography in subfiles when thesis.tex is compiled
+\setboolean{printBibInSubfiles}{false}
+
+%% Preliminary information
+%\crest{\includegraphics[width=2.3cm]{logo/psubw.png}}
+
+% Title of thesis when you require multiple lines
+\titleCover{Title of Thesis with Breaking Line\\ when You Require Multiple Lines}
+
+% Title without breaking line which is appeared in approval page (page ii)
+\title{Title of Thesis without Breaking Line}
+
+\authorTitle{Mr.}
+\author{Naphat~~Keawpibal}
+\authorName{Naphat}
+\authorLastname{Keawpibal}
+
+\studentID{5710230025}
+\degree{Doctor of Philosophy}
+\majorProgramCover{Computer Science \\(International Program)}
+
+% MajorProgram without breakline
+\majorProgram{Computer Science (International Program)}
+
+
+\degreeyear{2018}
+\academicyear{2018}
+\studyplan{PhD2} % PhD1 or PhD2
+
+% advisor and 
+\majoradvisor{Asst. Prof. Dr. Sirirut Vanichayobon}
+\coadvisor{Asst. Prof. Dr. Ladda Preechaveerakul}
+
+% committees
+\chairperson{aaaaaa}
+% major advisor
+\committeeOne{bbbbb}
+% internal committees
+\committeeTwo{cccccc} 
+\committeeThree{dddddd}
+%%% committee #4, if any 
+%\committeeFour{Assoc. Prof. Dr.}
+
+% current dean of graduate school
+\deanOfGraduateSchool{Prof. Dr. Damrongsak  Faroongsarng}
+
+\begin{titlepage}
+  	\maketitle
+\end{titlepage}
+
+\begin{innertitlepage}
+  	\makeCSthesistitle
+\end{innertitlepage}
+
+\begin{othertitlepage}
+	\makeApprovalPage
+\end{othertitlepage}
+
+\begin{othertitlepage}
+	\makeDeclaration
+\end{othertitlepage}
+
+% For adding Thai abstract for thai student only
+% Comment if you don't want it
+\includepdf[pages=-, pagecommand={\phantomsection\addcontentsline{toc}{chapter}{ABSTRACT (Thai)}}]{../abstract/abstractTH.pdf}
+%\addcontentsline{toc}{chapter}{ABSTRACT (Thai)}
+%%%%%%%%%%
+
+\subfile{../abstract/abstractEN}
+\subfile{../acknowledgment/acknowledgment}
+
+
+% Comment the items which you don't have
+\tableofcontents
+\listoftables
+\listoffigures
+\listofalgorithms
+
+\addtocontents{toc}{\tocheading}
+\mainmatter
+
+% Start the First Chapter Here
+\subfile{../chapter1/chapter1}
+\subfile{../chapter2/chapter2}
+\subfile{../chapter3/chapter3}
+\subfile{../chapter4/chapter4}
+\subfile{../chapter5/chapter5}
+\subfile{../chapter6/chapter6}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references} % reference file name
+
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\begin{appendices} % Using appendices environment for more functunality
+	\subfile{../appendix/appendix1}
+	%\subfile{../appendix/appendix2}
+\end{appendices}
+
+\subfile{../vitae/vitae}
+
+\end{document}
