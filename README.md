@@ -97,6 +97,8 @@ There are the additional properties corresponding to Graduate School, PSU guidel
 
 *   `\innerPageStyle{Roman}` (default): This template supports two page number styles (Roman and roman) for first 5 pages before starting contents of chapter. Specifying `Roman` will use uppercase Roman numerals. Specifying `roman` will use lowercase Roman numerals.
 
+--------------------------------------------------------------------------------
+
 ### Font
 
 `csthesis` currently supports a clone of Times New Roman. This template uses `newtxtext` and `newtxmath` font with Math Support.
