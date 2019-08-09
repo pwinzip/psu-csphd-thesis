@@ -1,20 +1,61 @@
-% ## Compiler		: PdfLatex
-% ## Bibliography	: BibTex
+% ####### Compiler     : pdflatex
+% ####### Bibliography : bibtex
 
-\documentclass[print]{../class/csthesis}
 %% add option 'print' for print version
 %% leave blank or add option 'online' for online version
+\documentclass[print]{../class/csthesis}
 
-%% Package 'subfiles' allows you to execute each chapter independently and separately, to facilitate correcting format without executing main file.
+% ####################### User Packages #######################
+\usepackage[export]{adjustbox}
+\usepackage{lipsum}
 
-%% Custom packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ################# Specify path for graphics #################
+\graphicspath{{figs/}{../figs/}}
 
+% ############# Command for algorithm environment #############
+\algnewcommand\algorithmicinput{\textbf{INPUT:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
 
+\algblockdefx{FOR}{ENDFOR}[1]%
+{\textbf{for }#1 \textbf{do}}%
+{\textbf{end for}}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ###################### Where condition ######################
+\newenvironment{conditions}[1][where:]
+{#1
+	\begin{tabular}[t]{>{}l<{} @{} >{${}}c<{{}$} @{} >{\raggedright\arraybackslash}p{0.8\textwidth}}}
+	{\end{tabular}\par\vspace{\belowdisplayskip}}
 
+% ############## Define my custom theorem style ###############
+\newtheoremstyle{mystyle}% name of the style to be used
+	{3pt}% measure of space to leave above the theorem. E.g.: 3pt
+	{3pt}% measure of space to leave below the theorem. E.g.: 3pt
+	{\normalfont}% name of font to use in the body of the theorem
+	{\parindent}% measure of space to indent
+	{\bf}% name of head font
+	{}% punctuation between head and body
+	{1em}% space after theorem head; " " = normal interword space
+	{}% Theorem head spec (can be left empty, meaning ‘normal’)
 
+% Command for use of the defined theorem style
+\theoremstyle{mystyle}
 
+% Define theorem
+% Usage: \newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{example}{Example}
+
+% ## Show the equation on multiple pages when it is too long ##
+\allowdisplaybreaks 
+
+% #############################################################
+\newenvironment{prosNcons}[1]{
+\indent \textbf{#1}\\ \indent
+}
+
+% ############### Specify words for hyphenation ###############
+\hyphenation{SE-COMPAX speci-fies preecha-veerakul}
 
 %% Print bibilography in subfiles when subfiles.tex is separately compiled
 \newboolean{printBibInSubfiles}
@@ -24,148 +65,155 @@
 		\bibliography{../main/references}}
 	{}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%% Specify path for graphics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\graphicspath{{figs/}{../figs/}} 
-% the first argrument is when you run from thesis.tex
-% the second argrument is when you run from {chapter1, 2, ...}.tex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% command for algorithm environment %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\algnewcommand\algorithmicinput{\textbf{INPUT:}}
-\algnewcommand\INPUT{\item[\algorithmicinput]}
-\algnewcommand\algorithmicoutput{\textbf{OUTPUT:}}
-\algnewcommand\OUTPUT{\item[\algorithmicoutput]}
-
-%\algblockdefx{FOR}{ENDFOR}[1]%
-%{\textbf{for }#1 \textbf{do}}%
-%{\textbf{end for}}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newtheoremstyle{mystyle}% 
-{3pt}% 
-{3pt}% 
-{\normalfont}% 
-{\parindent}% 
-{\bf}% 
-{}% 
-{1em}% 
-{}% 
-\theoremstyle{mystyle}
-\newtheorem{example}{Example}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\allowdisplaybreaks % divide the equation to multiple pages
-
-%% Add your hyphenation manually
-\hyphenation{SE-COMPAX speci-fies}
-
-
 
 \begin{document}
-%% Don't print bibilography in subfiles when thesis.tex is compiled
+%% Not print bibilography in subfiles when thesis.tex is compiled
 \setboolean{printBibInSubfiles}{false}
 
-%% Preliminary information
-%\crest{\includegraphics[width=2.3cm]{logo/psubw.png}}
+% ################## Preliminary Information ##################
+% Specify crest
+%\crest{\includegraphics[width=2.36cm, height=3.43cm]{logo/psubw.png}}
 
-% Title of thesis when you require multiple lines
-\titleCover{Title of Thesis with Breaking Line\\ when You Require Multiple Lines}
+% Specify page number style for inner pages
+% Usage: \frontPageStyle{<style>}
+% Default: \frontPageStyle{Roman}
+% Parameter: roman (i, ii, ...), Roman (I, II, ...)
+\innerPageStyle{Roman}
 
-% Title without breaking line which is appeared in approval page (page ii)
-\title{Title of Thesis without Breaking Line}
+% Title showing on cover page which probably contains multiple lines
+% Author add \\ for a new line manually
+% Usage: \titleCover{<value with \\ command}
+\titleCover{HyBiX: Hybrid Encoding Bitmap Index for \\Efficient Space and Query Processing Time}
 
-\authorTitle{Mr.}
-\author{Naphat~~Keawpibal}
-\authorName{Naphat}
-\authorLastname{Keawpibal}
+% Title showing on abstract page
+% Title must not contain new line command ( \\ )
+\title{HyBiX: Hybrid Encoding Bitmap Index for Efficient Space and Query Processing Time}
 
-\studentID{5710230025}
+% Personal Information
+% Usage: \authorInfo{<title>}{<firstname>}{<lastname>}{<student id}
+\authorInfo{Mr.}{Naphat}{Keawpibal}{5710230025}
+
+% Define degree
+% Usage: \degree{<value>}
 \degree{Doctor of Philosophy}
+
+% Major program showing on cover page
+% Major program probably contains multiple lines
+% Use \\ for new line
 \majorProgramCover{Computer Science \\(International Program)}
 
 % MajorProgram without breakline
 \majorProgram{Computer Science (International Program)}
 
-
+% Define degree year showing on cover page
+% Usage: \degreeyear{<year>}
 \degreeyear{2018}
-\academicyear{2018}
-\studyplan{PhD2} % PhD1 or PhD2
 
-% advisor and 
+% Define: academic year showing on abstract page
+% Usage: \academicyear{<year>}
+\academicyear{2018}
+
+% Define: study plan
+% Usage: \studyplan{<value>}
+% <value>: PhD1 and PhD2, case sensitive.
+\studyplan{PhD2}
+
+% Define: advisor name
+% Usage: \majoradvisor{<name>}
 \majoradvisor{Asst. Prof. Dr. Sirirut Vanichayobon}
+
+% Define: coadvisor name
+% Usage: \coadvisor{<name>}
 \coadvisor{Asst. Prof. Dr. Ladda Preechaveerakul}
 
-% committees
-\chairperson{aaaaaa}
-% major advisor
-\committeeOne{bbbbb}
-% internal committees
-\committeeTwo{cccccc} 
-\committeeThree{dddddd}
-%%% committee #4, if any 
-%\committeeFour{Assoc. Prof. Dr.}
 
-% current dean of graduate school
+% ######################### Committee #########################
+% Define: chairperson
+% Usage: \chairperson{<name>}
+\chairperson{Assoc. Prof. Dr. Ohm Sornil}
+% Define: 1st committee, this is your advisor
+% Usage: \committeeOne{<name>}
+\committeeOne{Asst. Prof. Dr. Sirirut Vanichayobon}
+% Define: 2nd committee, this is your co-advisor if any
+% Usage: \committeeTwo{<name>}
+\committeeTwo{Asst. Prof. Dr. Ladda Preechaveerakul}
+% Define: 3rd committee
+% Usage: \committeeThree{<name>}
+\committeeThree{Asst. Prof. Dr. Wiphada Wettayaprasit}
+% Define: 4th committee, if any
+% Usage: \committeeFour{<name>}
+%\committeeFour{}
+
+% Define: current dean of graduate school
+% Usage: \deanOfGraduateSchool{<name>}
 \deanOfGraduateSchool{Prof. Dr. Damrongsak  Faroongsarng}
 
+% Create cover page
 \begin{titlepage}
   	\maketitle
 \end{titlepage}
 
+% Create inner title page
 \begin{innertitlepage}
   	\makeCSthesistitle
 \end{innertitlepage}
 
+% Create approval page
 \begin{othertitlepage}
 	\makeApprovalPage
 \end{othertitlepage}
 
+% Create declaration pages
 \begin{othertitlepage}
 	\makeDeclaration
 \end{othertitlepage}
 
-% For adding Thai abstract for thai student only
-% Comment if you don't want it
+% For only thai students
+% Add PDF file of thai abstract
+% The thai abstract was created by Microsoft Word and exported as PDF file
+% Note: Comment it if you are an international student
 \includepdf[pages=-, pagecommand={\phantomsection\addcontentsline{toc}{chapter}{ABSTRACT (Thai)}}]{../abstract/abstractTH.pdf}
-%\addcontentsline{toc}{chapter}{ABSTRACT (Thai)}
-%%%%%%%%%%
 
+% Add english abstract page
 \subfile{../abstract/abstractEN}
-\subfile{../acknowledgment/acknowledgment}
 
+% Add acknowledgment page
+\subfile{../acknowledgement/acknowledgement}
 
-% Comment the items which you don't have
-\tableofcontents
-\listoftables
-\listoffigures
-\listofalgorithms
+% ################## TOC, LOT, LOF, and LOA ###################
+\CStableofcontents
+\CSlistoftables
+\CSlistoffigures
+\CSlistofalgorithms
 
+% Add "CHAPTER" before list of chapters in TOC
 \addtocontents{toc}{\tocheading}
+
+% ######################## Main Matter ########################
 \mainmatter
-
-% Start the First Chapter Here
 \subfile{../chapter1/chapter1}
-\subfile{../chapter2/chapter2}
-\subfile{../chapter3/chapter3}
-\subfile{../chapter4/chapter4}
-\subfile{../chapter5/chapter5}
-\subfile{../chapter6/chapter6}
+%\subfile{../chapter2/chapter2}
+%\subfile{../chapter3/chapter3}
+%\subfile{../chapter4/chapter4}
+%\subfile{../chapter5/chapter5}
+%\subfile{../chapter6/chapter6}
 
-\bibliographystyle{IEEEtran}
-\bibliography{references} % reference file name
+% ####################### Bibliography ########################
+% Bibliography based on IEEE style
+% Using bibliography file with extension .bib, e.g., references.bib
+\begin{CSbib}
+	\bibliographystyle{IEEEtran}
+	\bibliography{references}
+\end{CSbib}
 
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-\begin{appendices} % Using appendices environment for more functunality
-	\subfile{../appendix/appendix1}
-	%\subfile{../appendix/appendix2}
-\end{appendices}
+% ######################## Appendices #########################
+%\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+%\begin{appendices} % Using appendices environment for more functunality
+%	\subfile{../appendix/appendix1}
+%	%\subfile{../appendix/appendix2}
+%\end{appendices}
 
+% ########################## Vitae ############################
 \subfile{../vitae/vitae}
 
 \end{document}

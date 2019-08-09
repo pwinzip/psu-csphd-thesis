@@ -2,11 +2,107 @@
 
 \begin{document}
 
-\chapter{Title Appendix 1...}
+\chapter{Detailed TPC-H Benchmark Dataset}
 
-\section{Section title}
-Content
+\section{An Overview of TPC-H Benchmark dataset}
+The experimental dataset used in this dissertation is based on a standard set of TPC-H data, which is available to \cite{tpch}. The data is commonly used in evaluating the performance of ad-hoc and complex queries, and is considered as a standard decision support system. The TPC-H benchmark consists of eight separate and individual tables. Figure \ref{fig:tpch_scheme} illustrates TPC-H schema, which is the relationships between columns of these tables.
 
-%*** Do not delete the below line ***%
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.85, keepaspectratio]{tpch_schema}
+	\caption{Table Schema of TPC-H Benchmark}
+	\label{fig:tpch_scheme}
+\end{figure}
+
+\section{Table Layout of Data Used}
+As aforementioned, TPC-H benchmark consists of eight different tables. Each table stores a specific data, which is used for decision making. The following list defines the required structure of table LINEITEM.
+
+\begin{longtable}{p{3.9cm}p{3.9cm}p{5.8cm}}
+	\multicolumn{3}{l}{\bf LINEITEM Table Layout} \\
+	\underline{Column Name} 	& \underline{Datatype Requirements} & \underline{Comment} \\
+	L\_ORDERKEY		&	identifier	&	Foreign Key to O\_ORDERKEY \\
+	%\pagebreak
+	L\_PARTKEY		&	identifier	&	Foreign key to P\_PARTKEY, first part of the compound Foreign Key to (PS\_PARTKEY, PS\_SUPPKEY) with L\_SUPPKEY \\
+	L\_SUPPKEY		&	identifier	&	Foreign key to S\_SUPPKEY, second part of the compound Foreign Key to (PS\_PARTKEY, PS\_SUPPKEY) with L\_PARTKEY \\
+	L\_LINENUMBER	&	integer		& \\
+	L\_QUANTITY		&	decimal		& \\	
+	L\_EXTENDEDPRICE	&	decimal		& \\	
+	L\_DISCOUNT		&	decimal		& \\	
+	L\_TAX			&	decimal		& \\	
+	L\_RETURNFLAG	&	fixed text, size 1		& \\	
+	L\_LINESTATUS	&	fixed text, size 1		& \\
+	L\_SHIPDATE		&	date		& \\
+	L\_COMMITDATE	&	date		& \\
+	L\_RECEIPTDATE	&	date		& \\
+	L\_SHIPINSTRUCT	&	fixed text, size 25		& \\
+	L\_SHIPMODE		&	fixed text, size 10		& \\
+	L\_COMMENT		&	variable text size 44		& \\
+	\multicolumn{3}{l}{\textbf{Primary Key:} L\_ORDERKEY, L\_LINENUMBER}
+\end{longtable}
+
+\section{Table and Attributes Used in Experimental Study}
+The data used in the experimental study consists of two attributes with different cardinalities, from Table LINEITEM. The two attributes include Quantity with cardinality 50 and Shipdate with cardinality 2,256. The data is generated along with a scale factor (SF), which indicates a size of data. The values in parenthesis indicate the numbers of rows corresponding to scale factors. Four different scale factors are selected: 25 (149,996,355 rows), 50 (300,005,811 rows), 75 (450,019,701 rows), and 100 (600,037,902 rows).
+
+\section{Generating the Experiment Data}
+This section shows step by step to generate TPC-H benchmark dataset with a specific table with preferring data volumes, which is large enough to be able to demonstrate query performance. The steps are shown as follows:
+
+\begin{enumerate}[label=\thesection.\arabic*, leftmargin=1.7cm]
+	\item Download TPC-H tools from \url{http://www.tpc.org/tpc_documents_current_versions/current_specifications.asp}, as seen in Figure \ref{fig:dataset_url}, and extract it. In this case, I extracted the compressed file to \path{D:\Dataset\tpch_2.17.3}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.35, keepaspectratio]{dataset_url.jpg}
+		\caption{Website window for downloading TPC-H benchmark dataset.}
+		\label{fig:dataset_url}
+	\end{figure}	
+	
+	\item The dataset is built by using an application, which the downloaded contains C++ form. Therefore, I opened the project file (i.e., tpch.sln) using Visual Studio 2015. All I need to do, is to build the entire solution. Depending on your Visual Studio version, you might be faced with a conversion wizard, just click Finish to execute the conversion. Then, I build dbgen project to create dbgen application for generating data, see Figure \ref{fig:vs_tpch}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.3, keepaspectratio]{vs_tpch.jpg}
+		\caption{Tpch projects by Visual Studio 2015.}
+		\label{fig:vs_tpch}
+	\end{figure}
+	
+	\item All you need to do, is to build the entire solution, as shown in Figure . The result is the files dbgen.exe located in \path{D:\Dataset\tpch_2.17.3\dbgen\Debug} folder, as seen in Figure \ref{fig:debug_dbgen}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.45, keepaspectratio]{debug_dbgen.jpg}
+		\caption{The directory containing dbgen.exe.}
+		\label{fig:debug_dbgen}
+	\end{figure}
+
+	\item To avoid some errors, I copied the file dbgen.exe one level up, so it is located in the \path{D:\Dataset\tpch_2.17.3\dbgen} folder.
+	
+	\item I need to execute dbgen.exe via a command prompt, which is a command line interpreter application available in Windows operating system. Then, I change the current path to the directory where the file dbgen.exe located. If I execute the command with \textendash h, I will get some helps, as shown in Figure \ref{fig:dbgen_help}.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5, keepaspectratio]{dbgen_help.jpg}
+		\caption{The command line for dbgen help.}
+		\label{fig:dbgen_help}
+	\end{figure}
+	
+	\item If I simply run dbgen.exe, it will default to generate 1GB of data, divided into 8 different tables (CUSTOMERS, NATION, LINEITEM, ORDERS, PARTS, PARTSUPP, REGION, SUPPLIER). The \textendash s parameter specifies a scale factor, so \textendash s 10 gives 10GB, and \textendash s 100 generates 100GB of data. The \textendash v gives verbose output and the \textendash f enforces to overwrite existing files. If I prefer to generate the specific table, I will use the option \textendash T followed by the first letter of the table name corresponding to the help.
+	
+	\item To generate the data from only table LINEITEM with scale factor 1, I run the command dbgen.exe \textendash vf \textendash T L \textendash s 1, as shown in Figure \ref{fig:dbgen_command}. The resulting file will be located in the same directory as dbgen.exe. Therefore, the output is the file lineitem.tbl located in the \path{D:\Dataset\tpch_2.17.3\dbgen} folder. The content in this file is shown in Figure \ref{fig:lineitem_data}. The data in columns are delimited by `\textbar', which allow extracting the data in a specific column for the further other processing.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.5, keepaspectratio]{dbgen_command.jpg}
+		\caption{The command line for generating the data from table LINEITEM with scale factor 1.}
+		\label{fig:dbgen_command}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.3, keepaspectratio]{lineitem_data.jpg}
+		\caption{The generated data containing in table LINEITEM.}
+		\label{fig:lineitem_data}
+	\end{figure}
+\end{enumerate}
+
 \bib
 \end{document}

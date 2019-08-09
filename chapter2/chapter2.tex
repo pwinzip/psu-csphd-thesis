@@ -1,18 +1,25 @@
+% ################################################################
+% If you separately execute this subfile, 
+% the Chapter no, Page no, and Reference will always start at number 1.
+%
+% If you execute the thesis.tex, 
+% the Chapter no, Page no, and Reference will be automatically and 
+% continuously counted from previous chapters, 
+% according to the order of files in thesis.tex.
+% So, there is nothing to worry about numbering.
+% ################################################################
+
 \documentclass[../main/thesis.tex]{subfiles}
-%% If you separately execute this subfile, the Chapter, Page, and Reference will always start at number 1.
-%% If you execute the thesis.tex, the Chapter, Page, and Reference will be automatically and continuously counted from previous chapters, according to the order of files in thesis.tex.
-%% So, there is nothing to worry about number.
 
 \begin{document}
 
-\chapter{Related Works}
+\chapter{This is Chapter 2}
 \label{ch:2}
-This chapter describes the related work.
 
-\section{Method 1}
-Here is method 1
 
-%*** Do not delete the below line ***%
+
+% Trigger for showing bibliography
+% Do not remove the below command
 \bib
 \end{document}
 
