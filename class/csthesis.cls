@@ -10,14 +10,14 @@
 %% Date: 2019/08/04                                                           %%
 %% License: CS License (c) 2018                                               %%
 %% Based on: https://github.com/sdayu/PSU-thesis-latex-template               %%
-%% Git repo:                                                                  %%
+%% Git repo: https://github.com/pwinzip/psu-csphd-thesis                      %%
 %% Acording to PSU thesis manual http://www.grad.psu.ac.th/thesis_manual.php  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % *************************** Class Identification *****************************
 \newcommand\fileversion{1.0.1}
-\newcommand\filedate{2019/05/09}
+\newcommand\filedate{2019/08/04}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{../class/csthesis}[\filedate\space A Computer Science thesis class file
 by Naphat Keawpibal (v\fileversion)]
