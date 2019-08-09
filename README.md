@@ -2,7 +2,7 @@ CS.PhD PSU Thesis Template
 ========================
 
 
-> A LaTeX PhD thesis template for Computer Science Department, Prince of Songkla University (PSU)
+> A LaTeX PhD thesis template for Computer Science Department, Prince of Songkla University (PSU), Hat Yai, Songkhla, Thailand
 
 [![Version](http://img.shields.io/badge/version-v.1.0.1-brightgreen.svg)](https://github.com/pwinzip/psu-csphd-thesis)
 
@@ -14,7 +14,7 @@ CS.PhD PSU Thesis Template
 
 ## Features
 
-*   Conforms to the CS.PhD dissertation guidelines and Graduate School  Prince of Songkla University guidelines
+*   Conforms to the CS.PhD dissertation guidelines and Graduate School, Prince of Songkla University guidelines
 
 *   Supports LaTeX and `pdflatex`
 
@@ -40,10 +40,11 @@ CS.PhD PSU Thesis Template
 
 *   Add committee for your PhD thesis defense
 
-*   Add "TABLE OF CONTENTS (continued)" heading in the TOC if it flows onto a second page. It is similar to the LOF, LOT, and LOA.
+*   Add "TABLE OF CONTENTS (continued)" heading in the TOC if it flows onto a second page as well as in the LOF, LOT, and LOA.
+
+*   Supports landscape table
 
 ## File Structures
-========================
 
 |File|Description|Thai Description|
 |---|---|---|
@@ -73,7 +74,7 @@ The class file, `csthesis.cls`, is based on the standard `book` class
 
 It supports the following custom option in the documentclass in `thesis.tex`:
 
-(Usage `\documentclass[print]{csthesis}`)
+(Usage `\documentclass[print]{../class/csthesis}`)
 
 *   `print`: Supports Print and Online version with different hyperlink styles.
     Use `print` in the option to activate Print version with appropriate view styles.
@@ -110,6 +111,6 @@ There are the additional properties corresponding to Graduate School, PSU guidel
 
 ## Inspirations/Based on
 
-*   PhD Thesis Template from Graduate School, Prince of Songkla University [Thesis Template](https://grad.psu.ac.th/en/current-student/thesis/thesis-template.html)
+*   PhD Thesis Template from Graduate School, Prince of Songkla University. Source: [Thesis Template](https://grad.psu.ac.th/en/current-student/thesis/thesis-template.html)
 
-*   [https://github.com/sdayu/PSU-thesis-latex-template](https://github.com/sdayu/PSU-thesis-latex-template)
+*   Based on The latex template for PSU thesis from [https://github.com/sdayu/PSU-thesis-latex-template](https://github.com/sdayu/PSU-thesis-latex-template)
